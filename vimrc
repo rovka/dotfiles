@@ -5,6 +5,9 @@ set encoding=utf-8
 " Auto reload vimrc.
 autocmd BufWritePost .vimrc source %
 
+" Fix webpack watch.
+set backupcopy=yes
+
 " Enable modeline.
 set modeline
 set modelines=1
