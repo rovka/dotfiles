@@ -64,7 +64,13 @@ autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4 expandtab
 autocmd FileType coffee     inoremap # X<c-h>#
 
 " Remove trailing whitespaces
-autocmd BufWritePre * :%s/\s\+$//e
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Productivity shortcuts.
 imap jk <Esc>
