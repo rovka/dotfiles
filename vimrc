@@ -205,3 +205,5 @@ if has("cscope")
         set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
 endif
 
+" Paste from the clipboard the easy way
+set clipboard=unnamedplus
