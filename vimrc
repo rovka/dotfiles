@@ -125,6 +125,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Change default location for new splits
+set splitbelow
+set splitright
+
 " Improve up/down movement on wrapped lines, source=vimbits.com
 nnoremap j gj
 nnoremap k gk
