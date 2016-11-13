@@ -64,7 +64,13 @@ autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4 expandtab
 autocmd FileType coffee     inoremap # X<c-h>#
 
 " Remove trailing whitespaces
-autocmd BufWritePre * :%s/\s\+$//e
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " Productivity shortcuts.
 imap jk <Esc>
@@ -119,6 +125,10 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Change default location for new splits
+set splitbelow
+set splitright
+
 " Improve up/down movement on wrapped lines, source=vimbits.com
 nnoremap j gj
 nnoremap k gk
@@ -165,6 +175,19 @@ map <S-Q> gq
 " Search and replace the current word under the cursor.
 :nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
+" Search for selected text, forwards or backwards.
+" Ripped off from vim.wikia.com
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
 " Ripped off from Cosmin Ratiu, on SO list; 30 Jun 2009
 if has("cscope")
         " Look for a 'cscope.out' file starting from the current directory,
@@ -205,3 +228,5 @@ if has("cscope")
         set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
 endif
 
+" Paste from the clipboard the easy way
+set clipboard=unnamedplus
