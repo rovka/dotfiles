@@ -39,6 +39,12 @@ set mouse=a
 " Enable line numbers.
 set nu
 
+" Increment numbers in decimal format, as you'd expect.
+" Without this, Ctrl-A-ing on 07 would change to 10 because
+" of the leading 0 that tells vim to increment in octal.
+" From http://stackoverflow.com/questions/13273741/why-does-incrementing-with-ctrl-a-in-vim-take-me-from-07-to-10
+set nrformats-=octal
+
 " Enable pathogen.
 try
   execute pathogen#infect()
