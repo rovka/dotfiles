@@ -1,6 +1,6 @@
 .PHONY: all pathogen vim-plugins rc-files
 
-all: rc-files vim-plugins
+all: rc-files vim-plugins fzf
 
 rc-files:
 	rm -rf ~/.bashrc ~/.vimrc ~/.zshrc
@@ -19,3 +19,8 @@ vim-plugins: pathogen
 
 update-vim-plugins:
 	for plugin in vim-plugins/*; do git submodule update --remote "${plugin}"; done
+
+fzf:
+	rm -rf ~/.fzf
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install
