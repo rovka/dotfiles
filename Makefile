@@ -40,4 +40,3 @@ nvm:
 	rm -rf ~/.nvm
 	git clone https://github.com/creationix/nvm.git ~/.nvm
 	cd ~/.nvm && git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
-	./install-latest-node.sh
