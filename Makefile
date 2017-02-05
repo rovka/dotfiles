@@ -1,11 +1,10 @@
 .PHONY: all pathogen vim-plugins rc-files
 
-all: rc-files vim-plugins fzf nvm
+all: rc-files fzf nvm
 
-rc-files: zshrc
-	rm -rf ~/.bashrc ~/.vimrc
+rc-files: zshrc vimrc
+	rm -rf ~/.bashrc
 	ln -s `realpath bashrc` ~/.bashrc
-	ln -s `realpath vimrc` ~/.vimrc
 
 zshrc: oh-my-zsh
 	rm -rf ~/.zshrc
@@ -19,15 +18,19 @@ zsh:
 	sudo apt-get install -y zsh
 	chsh -s $(shell which zsh)
 
-pathogen:
-	mkdir -p ~/.vim/autoload
-	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+vimrc: vim-plugins
+	rm -rf ~/.vimrc
+	ln -s `realpath vimrc` ~/.vimrc
 
 vim-plugins: pathogen
 	mkdir -p ~/.vim
 	rm -rf ~/.vim/bundle
 	git submodule update --init
 	ln -s `realpath vim-plugins` ~/.vim/bundle
+
+pathogen:
+	mkdir -p ~/.vim/autoload
+	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 update-vim-plugins:
 	for plugin in vim-plugins/*; do git submodule update --remote "${plugin}"; done
