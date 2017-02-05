@@ -14,6 +14,7 @@ pathogen:
 
 vim-plugins: pathogen
 	mkdir -p ~/.vim
+	rm -rf ~/.vim/bundle
 	git submodule update --init
 	ln -s `realpath vim-plugins` ~/.vim/bundle
 
