@@ -3,8 +3,6 @@
 all: rc-files fzf nvm
 
 rc-files: zshrc vimrc
-	rm -rf ~/.bashrc
-	ln -s `realpath bashrc` ~/.bashrc
 
 zshrc: oh-my-zsh
 	rm -rf ~/.zshrc
