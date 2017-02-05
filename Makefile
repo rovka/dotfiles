@@ -2,11 +2,22 @@
 
 all: rc-files vim-plugins fzf nvm
 
-rc-files:
-	rm -rf ~/.bashrc ~/.vimrc ~/.zshrc
+rc-files: zshrc
+	rm -rf ~/.bashrc ~/.vimrc
 	ln -s `realpath bashrc` ~/.bashrc
-	ln -s `realpath zshrc` ~/.zshrc
 	ln -s `realpath vimrc` ~/.vimrc
+
+zshrc: oh-my-zsh
+	rm -rf ~/.zshrc
+	ln -s `realpath zshrc` ~/.zshrc
+
+oh-my-zsh: zsh
+	rm -rf ~/.oh-my-zsh
+	curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
+
+zsh:
+	sudo apt-get install -y zsh
+	chsh -s $(shell which zsh)
 
 pathogen:
 	mkdir -p ~/.vim/autoload
