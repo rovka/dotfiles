@@ -1,12 +1,14 @@
 .PHONY: all pathogen vim-plugins rc-files
 
+PWD := $(shell pwd)
+
 all: rc-files fzf nvm
 
 rc-files: zshrc vimrc
 
 zshrc: oh-my-zsh
 	rm -rf ~/.zshrc
-	ln -s `realpath zshrc` ~/.zshrc
+	ln -s "${PWD}/zshrc" ~/.zshrc
 
 oh-my-zsh: zsh curl
 	rm -rf ~/.oh-my-zsh
@@ -18,13 +20,13 @@ zsh:
 
 vimrc: vim-plugins
 	rm -rf ~/.vimrc
-	ln -s `realpath vimrc` ~/.vimrc
+	ln -s "${PWD}/vimrc" ~/.vimrc
 
 vim-plugins: pathogen
 	mkdir -p ~/.vim
 	rm -rf ~/.vim/bundle
 	git submodule update --init
-	ln -s `realpath vim-plugins` ~/.vim/bundle
+	ln -s "${PWD}/vim-plugins" ~/.vim/bundle
 
 pathogen: curl
 	mkdir -p ~/.vim/autoload
