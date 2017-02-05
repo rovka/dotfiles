@@ -3,7 +3,9 @@
 all: rc-files vim-plugins
 
 rc-files:
+	rm -rf ~/.bashrc ~/.vimrc ~/.zshrc
 	ln -s `realpath bashrc` ~/.bashrc
+	ln -s `realpath zshrc` ~/.zshrc
 	ln -s `realpath vimrc` ~/.vimrc
 
 pathogen:
