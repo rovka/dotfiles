@@ -39,4 +39,6 @@ fzf:
 	~/.fzf/install --key-bindings --completion --no-update-rc
 
 nvm:
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+	rm -rf ~/.nvm
+	git clone https://github.com/creationix/nvm.git ~/.nvm
+	cd ~/.nvm && git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
