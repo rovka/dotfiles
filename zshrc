@@ -32,3 +32,4 @@ which ag > /dev/null && export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 alias open='xdg-open'
+alias cb='git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d'
