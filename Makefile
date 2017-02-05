@@ -1,6 +1,6 @@
 .PHONY: all pathogen vim-plugins rc-files
 
-all: rc-files vim-plugins fzf
+all: rc-files vim-plugins fzf nvm
 
 rc-files:
 	rm -rf ~/.bashrc ~/.vimrc ~/.zshrc
@@ -25,3 +25,6 @@ fzf:
 	rm -rf ~/.fzf
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install
+
+nvm:
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
