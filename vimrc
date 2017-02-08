@@ -95,8 +95,9 @@ set hlsearch
 set incsearch
 nnoremap <F3> :noh<CR>
 
-" ctrlp: Ignore files that are in gitignore; also much faster.
-let g:ctrlp_user_command = 'git ls-files -cmo --exclude-standard %s'
+" Fuzzy file find.
+set rtp+=~/.fzf
+nnoremap <C-p> :Files<CR>
 
 " Toggle git diff in the signs column.
 nnoremap <leader>g :GitGutterToggle<CR>

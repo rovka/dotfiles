@@ -1,6 +1,6 @@
-[submodule "vim-plugins/ctrlp.vim"]
-	path = vim-plugins/ctrlp.vim
-	url = https://github.com/kien/ctrlp.vim.git
+[submodule "vim-plugins/fzf.vim"]
+	path = vim-plugins/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
 [submodule "vim-plugins/nerdtree"]
 	path = vim-plugins/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
