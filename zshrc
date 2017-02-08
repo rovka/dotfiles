@@ -28,7 +28,7 @@ unsetopt histverify
 unsetopt share_history
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-which ag > /dev/null && export FZF_DEFAULT_COMMAND='ag -g ""'
+which ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 alias open='xdg-open'
