@@ -172,8 +172,7 @@ nnoremap <leader>p :set invpaste paste?<CR>
 set pastetoggle=<leader>p
 set showmode
 
-" Highlight the 81st column, not visible in normal terminal, visible when using
-" viewports.
+" Highlight the line length limit.
 if version >= 703
 	set cc=+1
 endif
