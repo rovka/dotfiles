@@ -1,5 +1,3 @@
-.PHONY: all pathogen vim-plugins rc-files
-
 PWD := $(shell pwd)
 
 all: rc-files fzf
