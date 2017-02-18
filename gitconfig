@@ -1,0 +1,14 @@
+[user]
+	email = NiGhTTraX@users.noreply.github.com
+	name = Andrei Picus
+[core]
+	excludesfile = ~/.gitignore
+	attributesfile = ~/.gitattributes
+[push]
+	default = simple
+[diff]
+	renames = true
+[grep]
+	lineNumber = true
+[diff "image"]
+	command = ~/git-imgdiff.sh
