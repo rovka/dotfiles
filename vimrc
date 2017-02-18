@@ -90,10 +90,12 @@ nnoremap K <C-U>
 " Select last pasted/modified text in the same visual mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Toggle search pattern highlighting.
+" Highlight search results.
 set hlsearch
+" Incremental search: jumps to the first match while typing.
 set incsearch
-nnoremap <F3> :noh<CR>
+" Toggle search pattern highlighting.
+nnoremap <leader>h :noh<CR>
 
 " Fuzzy file find.
 set rtp+=~/.fzf
@@ -166,8 +168,8 @@ if has("autocmd")
 endif
 
 " Paste toggle so that pasted code isn't auto indented, source=vim.wikia.com
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
+nnoremap <leader>p :set invpaste paste?<CR>
+set pastetoggle=<leader>p
 set showmode
 
 " Highlight the 81st column, not visible in normal terminal, visible when using
