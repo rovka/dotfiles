@@ -4,7 +4,7 @@ PWD := $(shell pwd)
 
 all: rc-files fzf nvm
 
-rc-files: zshrc vimrc git
+rc-files: zshrc vimrc git npmrc
 
 zshrc: oh-my-zsh
 	rm -rf ~/.zshrc
@@ -23,6 +23,10 @@ git:
 	ln -s "${PWD}/gitconfig" ~/.gitconfig
 	ln -s "${PWD}/gitattributes" ~/.gitattributes
 	ln -s "${PWD}/gitignore" ~/.gitignore
+
+npmrc:
+	rm -rf ~/.npmrc
+	ln -s "${PWD}/npmrc" ~/.npmrc
 
 vim-plugins: pathogen
 	mkdir -p ~/.vim
