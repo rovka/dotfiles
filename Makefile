@@ -4,9 +4,9 @@ PWD := $(shell pwd)
 
 all: rc-files fzf nvm
 
-rc-files: zshrc vimrc git npmrc
+rc-files: zsh vim git npm
 
-zshrc: oh-my-zsh
+zsh: oh-my-zsh
 	rm -rf ~/.zshrc
 	ln -s "${PWD}/zshrc" ~/.zshrc
 
@@ -14,7 +14,7 @@ oh-my-zsh:
 	rm -rf ~/.oh-my-zsh
 	curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
 
-vimrc: vim-plugins
+vim: vim-plugins
 	rm -rf ~/.vimrc
 	ln -s "${PWD}/vimrc" ~/.vimrc
 
@@ -24,7 +24,7 @@ git:
 	ln -s "${PWD}/gitattributes" ~/.gitattributes
 	ln -s "${PWD}/gitignore" ~/.gitignore
 
-npmrc:
+npm:
 	rm -rf ~/.npmrc
 	ln -s "${PWD}/npmrc" ~/.npmrc
 
