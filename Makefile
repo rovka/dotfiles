@@ -2,7 +2,7 @@
 
 PWD := $(shell pwd)
 
-all: rc-files fzf nvm
+all: rc-files fzf
 
 rc-files: zsh vim git npm
 
