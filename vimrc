@@ -100,7 +100,8 @@ nnoremap <leader>h :noh<CR>
 " Fuzzy file find.
 set rtp+=~/.fzf
 " Make the fzf layout consistent with the one in the shell.
-let g:fzf_layout = { 'down': '~40%', 'options': '--reverse --multi' }
+let g:fzf_layout = { 'down': '~40%' }
+let $FZF_DEFAULT_OPTS = '--reverse --multi'
 nnoremap <C-p> :Files<CR>
 
 " Toggle git diff in the signs column.
