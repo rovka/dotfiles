@@ -201,3 +201,11 @@ vnoremap <silent> # :<C-U>
 
 " Paste from the clipboard the easy way
 set clipboard=unnamedplus
+
+" Apply macros to the visual selection. Doesn't stop on lines that don't match.
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
