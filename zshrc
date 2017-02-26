@@ -31,6 +31,6 @@ unsetopt share_history
 which ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-which open > /dev/null || alias open='xdg-open'
+[ $(uname) = 'Linux' ] && alias open='xdg-open'
 alias cb='git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d'
 alias cp='rsync -rvP'
