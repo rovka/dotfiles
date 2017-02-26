@@ -17,10 +17,11 @@ vim: vim-plugins
 	ln -s "${PWD}/vimrc" ~/.vimrc
 
 git:
-	rm -rf ~/.gitattributes ~/.gitconfig ~/.gitignore
+	rm -rf ~/.gitattributes ~/.gitconfig ~/.gitignore ~/git-imgdiff.sh
 	ln -s "${PWD}/gitconfig" ~/.gitconfig
 	ln -s "${PWD}/gitattributes" ~/.gitattributes
 	ln -s "${PWD}/gitignore" ~/.gitignore
+	ln -s "${PWD}/git-imgdiff.sh" ~/git-imgdiff.sh
 
 npm:
 	rm -rf ~/.npmrc
