@@ -104,6 +104,15 @@ let g:fzf_layout = { 'down': '~40%' }
 let $FZF_DEFAULT_OPTS = '--reverse --multi'
 nnoremap <C-p> :Files<CR>
 
+" Enable quick preview for search results.
+command! -bang -nargs=* Ag
+    \ call fzf#vim#ag(
+    \   <q-args>,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \   <bang>0
+    \ )
+
 " Toggle git diff in the signs column.
 nnoremap <leader>g :GitGutterToggle<CR>
 
