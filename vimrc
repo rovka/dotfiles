@@ -104,10 +104,17 @@ let g:fzf_layout = { 'down': '~40%' }
 let $FZF_DEFAULT_OPTS = '--reverse --multi'
 nnoremap <C-p> :Files<CR>
 
-" Enable quick preview for search results.
+" Default options are --nogroup --column --color and they will be merged with
+" the new options. Unfortunately there is no --nocolumn option so we're stuck
+" with that.
+" source: https://github.com/junegunn/fzf.vim/issues/273#issuecomment-267641703
+let s:ag_options = '--smart-case --hidden --ignore .git'
+
+" Enable quick preview for search results and use the options above.
 command! -bang -nargs=* Ag
     \ call fzf#vim#ag(
     \   <q-args>,
+    \   s:ag_options,
     \   <bang>0 ? fzf#vim#with_preview('up:60%')
     \           : fzf#vim#with_preview('right:50%:hidden', '?'),
     \   <bang>0
