@@ -15,6 +15,7 @@ oh-my-zsh:
 vim: vim-plugins
 	rm -rf ~/.vimrc
 	ln -s "${PWD}/vimrc" ~/.vimrc
+	mkdir -p ~/.vim/backups
 
 git:
 	rm -rf ~/.gitattributes ~/.gitconfig ~/.gitignore ~/git-imgdiff.sh

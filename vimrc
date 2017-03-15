@@ -8,6 +8,10 @@ autocmd BufWritePost .vimrc source %
 " Fix webpack watch.
 set backupcopy=yes
 
+" Try to stop saving backup files and swap files in the current folder.
+set backupdir=~/.vim/backups,.
+set directory=~/.vim/backups,.
+
 " Enable modeline.
 set modeline
 set modelines=1
