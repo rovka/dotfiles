@@ -68,14 +68,13 @@ filetype plugin indent on
 
 " Per filetype-settings
 " c/cpp modified by Deedee to match LLVM coding style
-autocmd FileType c,cpp      setlocal tw=80 sw=2 sts=2 tabstop=2 expandtab
+autocmd FileType c,cpp      setlocal tw=80 sw=2 sts=2 tabstop=2
 autocmd FileType java       setlocal foldmethod=marker
 autocmd FileType python     setlocal expandtab
 autocmd FileType python     inoremap # X<c-h>#
-autocmd FileType html,php   setlocal tw=0 cc=101 expandtab nowrap
-autocmd FileType javascript setlocal sw=2 sts=2 expandtab
-autocmd FileType css        setlocal expandtab
-autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4 expandtab
+autocmd FileType html,php   setlocal tw=0 cc=101 nowrap
+autocmd FileType javascript setlocal sw=2 sts=2
+autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4
 autocmd FileType coffee     inoremap # X<c-h>#
 
 " Remove trailing whitespaces
