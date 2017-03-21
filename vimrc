@@ -18,22 +18,6 @@ set modelines=1
 
 let mapleader=","
 
-" Tab length.
-set tabstop=2
-set sw=2
-set sts=2
-
-" Expand tab to spaces.
-set expandtab
-
-" Line length.
-set tw=80
-set wrap
-
-" Auto smart indentation.
-set ai
-set smartindent
-
 " Number of lines to keep visible at the top/bottom.
 set scrolloff=2
 
@@ -56,6 +40,27 @@ catch
 endtry
 
 syntax enable
+
+" Tab length.
+set tabstop=2
+set sw=2
+set sts=2
+
+" Expand tab to spaces.
+set expandtab
+
+" Line length.
+set tw=80
+set wrap
+
+" Highlight the line length limit.
+if version >= 703
+	set cc=+1
+endif
+
+" Auto smart indentation.
+set ai
+set smartindent
 
 " Load indentation rules and plugins according to detected filetype.
 " Also required by pathogen.
@@ -199,11 +204,6 @@ endif
 nnoremap <leader>p :set invpaste paste?<CR>
 set pastetoggle=<leader>p
 set showmode
-
-" Highlight the line length limit.
-if version >= 703
-	set cc=+1
-endif
 
 " Rewrap a block of text
 map <S-Q> gq
