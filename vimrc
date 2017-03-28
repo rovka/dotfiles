@@ -135,6 +135,9 @@ vnoremap <C-f> y:Ag<space><C-R>"<CR>
 " can press enter and then type it to get fuzzy matches.
 nnoremap <C-f> :Ag<space>
 
+" Fuzzy search in all the open buffers.
+nnoremap <C-g> :Lines<CR>
+
 " Toggle git diff in the signs column.
 nnoremap <leader>g :GitGutterToggle<CR>
 
