@@ -138,6 +138,8 @@ nnoremap <C-f> :Ag<space>
 " Fuzzy search in all the open buffers.
 nnoremap <C-g> :Lines<CR>
 
+nnoremap <C-b> :Buffers<CR>
+
 " Toggle git diff in the signs column.
 nnoremap <leader>g :GitGutterToggle<CR>
 
