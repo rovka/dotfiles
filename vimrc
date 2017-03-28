@@ -129,9 +129,10 @@ command! -bang -nargs=* Ag
     \   <bang>0
     \ )
 
-" Search in the entire project. You can type your search pattern and press enter
-" to get full match results, or you can press enter and type your pattern for
-" fuzzy matches.
+" Search the entire project for the visual selection.
+vnoremap <C-f> y:Ag<space><C-R>"<CR>
+" When there's no visual selection you have to type your search pattern, or you
+" can press enter and then type it to get fuzzy matches.
 nnoremap <C-f> :Ag<space>
 
 " Toggle git diff in the signs column.
