@@ -12,3 +12,5 @@
 	lineNumber = true
 [diff "image"]
 	command = ~/git-imgdiff.sh
+[alias]
+  l = log --first-parent --oneline
