@@ -58,9 +58,21 @@ if version >= 703
 	set cc=+1
 endif
 
-" Auto smart indentation.
+" Copy the indentation of the previous line when creating a new one.
 set ai
+
+" An indent is automatically inserted:
+" - After a line ending in '{'.
+" - After a line starting with a keyword from 'cinwords'.
+" - Before a line starting with '}' (only with the "O" command).
+" When typing '}' as the first character in a new line, that line is
+" given the same indent as the matching '{'.
 set smartindent
+
+" With smartindent on, typing '#' as the first character in a new
+" line removes the indentation for that line and puts '#' in the
+" first column. This disables that.
+inoremap # X
 
 " Load indentation rules and plugins according to detected filetype.
 " Also required by pathogen.
@@ -71,12 +83,10 @@ filetype plugin indent on
 autocmd FileType c,cpp      setlocal tw=80 sw=2 sts=2 tabstop=2
 autocmd FileType java       setlocal foldmethod=marker
 autocmd FileType python     setlocal expandtab
-autocmd FileType python     inoremap # X<c-h>#
 autocmd FileType php        setlocal tw=80 sw=4 sts=4 tabstop=4
 autocmd FileType html       setlocal tw=0 cc=101 nowrap
 autocmd FileType javascript setlocal sw=2 sts=2
 autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4
-autocmd FileType coffee     inoremap # X<c-h>#
 
 " Remove trailing whitespaces
 fun! <SID>StripTrailingWhitespaces()
