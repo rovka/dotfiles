@@ -138,6 +138,12 @@ nnoremap <C-f> :Ag<space>
 " Fuzzy search in all the open buffers.
 nnoremap <C-g> :Lines<CR>
 
+" Search and replace the current word under the cursor.
+:nnoremap <leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" Search and replace the current visual selection.
+:vnoremap <leader>s y:%s/\<<C-R>"\>//g<Left><Left>
+
 nnoremap <C-b> :Buffers<CR>
 
 " Toggle git diff in the signs column.
@@ -213,9 +219,6 @@ set showmode
 
 " Rewrap a block of text
 map <S-Q> gq
-
-" Search and replace the current word under the cursor.
-:nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " Search for selected text, forwards or backwards.
 " Ripped off from vim.wikia.com
