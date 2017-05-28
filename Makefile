@@ -17,12 +17,20 @@ vim: vim-plugins
 	ln -s "${PWD}/vimrc" ~/.vimrc
 	mkdir -p ~/.vim/backups
 
-git:
-	rm -rf ~/.gitattributes ~/.gitconfig ~/.gitignore ~/git-imgdiff.sh
-	ln -s "${PWD}/gitconfig" ~/.gitconfig
+git: git-config
+	rm -rf ~/.gitattributes ~/.gitignore ~/git-imgdiff.sh
 	ln -s "${PWD}/gitattributes" ~/.gitattributes
 	ln -s "${PWD}/gitignore" ~/.gitignore
 	ln -s "${PWD}/git-imgdiff.sh" ~/git-imgdiff.sh
+
+git-config:
+	git config --global core.excludesfile '~/.gitignore'
+	git config --global core.attributesfile '~/.gitattributes'
+	git config --global push.default simple
+	git config --global grep.lineNumber true
+	git config --global diff.renames true
+	git config --global diff.image.command '~/git-imgdiff.sh'
+	git config --global alias.l 'log --first-parent --oneline'
 
 npm:
 	rm -rf ~/.npmrc
