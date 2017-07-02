@@ -64,12 +64,9 @@ set ai
 " - Before a line starting with '}' (only with the "O" command).
 " When typing '}' as the first character in a new line, that line is
 " given the same indent as the matching '{'.
-set smartindent
-
-" With smartindent on, typing '#' as the first character in a new
-" line removes the indentation for that line and puts '#' in the
-" first column. This disables that.
-inoremap # X
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
 
 " Load indentation rules and plugins according to detected filetype.
 " Also required by pathogen.
