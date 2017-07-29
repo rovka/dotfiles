@@ -5,23 +5,20 @@ all: rc-files fzf
 rc-files: zsh vim git npm
 
 zsh: oh-my-zsh
-	rm -rf ~/.zshrc
-	ln -s "${PWD}/zshrc" ~/.zshrc
+	ln -sf "${PWD}/zshrc" ~/.zshrc
 
 oh-my-zsh:
 	rm -rf ~/.oh-my-zsh
 	curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
 
 vim: vim-plugins
-	rm -rf ~/.vimrc
-	ln -s "${PWD}/vimrc" ~/.vimrc
+	ln -sf "${PWD}/vimrc" ~/.vimrc
 	mkdir -p ~/.vim/backups
 
 git: git-config
-	rm -rf ~/.gitattributes ~/.gitignore ~/git-imgdiff.sh
-	ln -s "${PWD}/gitattributes" ~/.gitattributes
-	ln -s "${PWD}/gitignore" ~/.gitignore
-	ln -s "${PWD}/git-imgdiff.sh" ~/git-imgdiff.sh
+	ln -sf "${PWD}/gitattributes" ~/.gitattributes
+	ln -sf "${PWD}/gitignore" ~/.gitignore
+	ln -sf "${PWD}/git-imgdiff.sh" ~/git-imgdiff.sh
 
 git-config:
 	git config --global core.excludesfile '~/.gitignore'
@@ -33,14 +30,12 @@ git-config:
 	git config --global alias.l 'log --first-parent --oneline'
 
 npm:
-	rm -rf ~/.npmrc
-	ln -s "${PWD}/npmrc" ~/.npmrc
+	ln -sf "${PWD}/npmrc" ~/.npmrc
 
 vim-plugins: pathogen
 	mkdir -p ~/.vim
-	rm -rf ~/.vim/bundle
 	git submodule update --init
-	ln -s "${PWD}/vim-plugins" ~/.vim/bundle
+	ln -sf "${PWD}/vim-plugins" ~/.vim/bundle
 
 pathogen:
 	mkdir -p ~/.vim/autoload
