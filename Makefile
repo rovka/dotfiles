@@ -35,7 +35,8 @@ npm:
 vim-plugins: pathogen
 	mkdir -p ~/.vim
 	git submodule update --init
-	ln -sf "${PWD}/vim-plugins" ~/.vim/bundle
+	# -T will avoid creating a dir inside dest if dest already exists.
+	ln -sfT "${PWD}/vim-plugins" ~/.vim/bundle
 
 pathogen:
 	mkdir -p ~/.vim/autoload
