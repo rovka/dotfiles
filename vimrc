@@ -89,6 +89,9 @@ autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4
 " +1: Try to break a line before the last one letter word.
 autocmd FileType * set fo-=r fo-=o fo+=1
 
+" Enable JSDoc syntax highlighting
+let g:javascript_plugin_jsdoc = 1
+
 " Remove trailing whitespaces
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
