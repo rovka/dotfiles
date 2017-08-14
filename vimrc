@@ -38,6 +38,9 @@ endtry
 
 syntax enable
 
+" Wombat!
+let g:airline_theme='wombat'
+
 " Tab length.
 set tabstop=2
 set sw=2

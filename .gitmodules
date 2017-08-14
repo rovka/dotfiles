@@ -34,3 +34,6 @@
 [submodule "vim-plugins/vim-airline"]
 	path = vim-plugins/vim-airline
 	url = https://github.com/vim-airline/vim-airline
+[submodule "vim-plugins/vim-airline-themes"]
+	path = vim-plugins/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
