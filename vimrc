@@ -13,6 +13,10 @@ set directory=~/.vim/backups,.
 set modeline
 set modelines=1
 
+" Show (partial) command in the last line of the screen. Helps to see if you
+" accidentally pressed any key.
+set showcmd
+
 let mapleader=","
 
 " Number of lines to keep visible at the top/bottom.
