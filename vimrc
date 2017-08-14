@@ -5,6 +5,9 @@ set encoding=utf-8
 " Fix webpack watch.
 set backupcopy=yes
 
+" OSX you so silly
+set backspace=2
+
 " Try to stop saving backup files and swap files in the current folder.
 set backupdir=~/.vim/backups,.
 set directory=~/.vim/backups,.
