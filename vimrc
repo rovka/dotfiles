@@ -255,7 +255,7 @@ vnoremap <silent> # :<C-U>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " Paste from the clipboard the easy way
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Apply macros to the visual selection. Doesn't stop on lines that don't match.
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
