@@ -92,9 +92,8 @@ autocmd FileType html       setlocal tw=0 cc=101 nowrap
 autocmd FileType javascript setlocal sw=2 sts=2
 autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4
 
-" -ro: Don't insert comment leader when explicitly startling a new line.
 " +1: Try to break a line before the last one letter word.
-autocmd FileType * set fo-=r fo-=o fo+=1
+autocmd FileType * set fo+=1
 
 " Enable JSDoc syntax highlighting
 let g:javascript_plugin_jsdoc = 1
