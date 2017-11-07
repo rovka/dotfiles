@@ -12,7 +12,7 @@ fi
 
 # Try to diff the images and create a montage with the original on
 # the left, diff in the middle and the new one on the right.
-DIFF=$(compare "$2" "$1" png:- > $DIFF_PATH)
+compare "$2" "$1" $DIFF_PATH
 
 # XXX: for some reason IG exits with 1 when it successfully creates the diff
 if [[ $? == 1 ]]; then
