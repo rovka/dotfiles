@@ -2,7 +2,7 @@ PWD := $(shell pwd)
 
 all: rc-files fzf
 
-rc-files: zsh vim git npm
+rc-files: zsh vim git npm tmux
 
 .PHONY: zsh
 zsh: oh-my-zsh
@@ -64,3 +64,10 @@ nvm:
 	rm -rf ~/.nvm
 	git clone https://github.com/creationix/nvm.git ~/.nvm
 	cd ~/.nvm && git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
+
+.PHONY: tmux
+tmux:
+	rm -rf ~/.tmux.conf ~/.tmux.conf.local
+	git submodule update --init
+	ln -sf "${PWD}/tmux/config/.tmux.conf" ~/.tmux.conf
+	ln -sf "${PWD}/tmux/tmux.conf.local" ~/.tmux.conf.local
