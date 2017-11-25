@@ -103,6 +103,10 @@ Plugin 'vim-airline/vim-airline-themes'
 " All of the Vundle plugins must be added before this.
 call vundle#end()
 
+let g:solarized_termcolors=256
+colorscheme solarized
+set background=dark
+
 " Load indentation rules and plugins according to detected filetype.
 " Also required by vundle.
 filetype plugin indent on
