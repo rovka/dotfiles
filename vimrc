@@ -79,16 +79,23 @@ set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 
-Plugin 'junegunn/fzf.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'airblade/vim-gitgutter'
+" Syntax highlighting.
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 Plugin 'elzr/vim-json'
 Plugin 'groenewege/vim-less'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+
+" Git.
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" File exploring.
+Plugin 'junegunn/fzf.vim'
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'scrooloose/nerdcommenter'
+
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
