@@ -37,11 +37,12 @@ set nu
 " From http://stackoverflow.com/questions/13273741/why-does-incrementing-with-ctrl-a-in-vim-take-me-from-07-to-10
 set nrformats-=octal
 
-" Enable pathogen.
-try
-  execute pathogen#infect()
-catch
-endtry
+" Enable Vundle.
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 
 syntax enable
 
@@ -78,8 +79,25 @@ set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 
+Plugin 'junegunn/fzf.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'elzr/vim-json'
+Plugin 'groenewege/vim-less'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'tpope/vim-fugitive'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" All of the Vundle plugins must be added before this.
+call vundle#end()
+
 " Load indentation rules and plugins according to detected filetype.
-" Also required by pathogen.
+" Also required by vundle.
 filetype plugin indent on
 
 " Per filetype-settings

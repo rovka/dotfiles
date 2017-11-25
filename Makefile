@@ -33,18 +33,11 @@ git-config:
 npm:
 	ln -sf "${PWD}/npmrc" ~/.npmrc
 
-vim-plugins: pathogen
-	mkdir -p ~/.vim
-	git submodule update --init
-	# -T will avoid creating a dir inside dest if dest already exists.
-	ln -sfT "${PWD}/vim-plugins" ~/.vim/bundle
-
-pathogen:
-	mkdir -p ~/.vim/autoload
-	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
-update-vim-plugins:
-	for plugin in vim-plugins/*; do git submodule update --remote "${plugin}"; done
+vim-plugins:
+	rm -rf ~/.vim
+	mkdir -p ~/.vim/bundle
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
 
 fzf:
 	rm -rf ~/.fzf
