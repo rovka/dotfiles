@@ -14,7 +14,10 @@ COMPLETION_WAITING_DOTS="true"
 # status check for large repositories much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git)
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
+
+plugins=(git tmux)
 
 source $ZSH/oh-my-zsh.sh
 
