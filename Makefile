@@ -4,22 +4,27 @@ all: rc-files fzf
 
 rc-files: zsh vim git npm
 
+.PHONY: zsh
 zsh: oh-my-zsh
 	ln -sf "${PWD}/zshrc" ~/.zshrc
 
+.PHONY: oh-my-zsh
 oh-my-zsh:
 	rm -rf ~/.oh-my-zsh
 	curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
 
+.PHONY: vim
 vim: vim-plugins
 	ln -sf "${PWD}/vimrc" ~/.vimrc
 	mkdir -p ~/.vim/backups
 
+.PHONY: git
 git: git-config
 	ln -sf "${PWD}/gitattributes" ~/.gitattributes
 	ln -sf "${PWD}/gitignore" ~/.gitignore
 	ln -sf "${PWD}/git-imgdiff.sh" ~/git-imgdiff.sh
 
+.PHONY: git-config
 git-config:
 	git config --global core.excludesfile '~/.gitignore'
 	git config --global core.attributesfile '~/.gitattributes'
@@ -30,20 +35,24 @@ git-config:
 	git config --global alias.l 'log --first-parent --oneline'
 	git config --global commit.verbose true
 
+.PHONY: npm
 npm:
 	ln -sf "${PWD}/npmrc" ~/.npmrc
 
+.PHONY: vim-plugins
 vim-plugins:
 	rm -rf ~/.vim
 	mkdir -p ~/.vim/bundle
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
 
+.PHONY: fzf
 fzf:
 	rm -rf ~/.fzf
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --key-bindings --completion --no-update-rc
 
+.PHONY: nvm
 nvm:
 	rm -rf ~/.nvm
 	git clone https://github.com/creationix/nvm.git ~/.nvm
