@@ -253,3 +253,7 @@ tmux_conf_copy_to_os_clipboard=false
 
 # The default contains some noise.
 set -g set-titles-string '#h #W'
+
+# Split panes a la iTerm2
+bind -n M-d split-window -h
+bind -n M-D split-window -v
