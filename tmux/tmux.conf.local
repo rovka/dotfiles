@@ -257,3 +257,6 @@ set -g set-titles-string '#h #W'
 # Split panes a la iTerm2
 bind -n M-d split-window -h
 bind -n M-D split-window -v
+
+# Exit prefix mode immediately after a command.
+set -sg repeat-time 0
