@@ -47,7 +47,7 @@ Plugin 'VundleVim/Vundle.vim'
 syntax enable
 
 " Wombat!
-let g:airline_theme='wombat'
+let g:airline_theme='solarized'
 
 " Tab length.
 set tabstop=2
