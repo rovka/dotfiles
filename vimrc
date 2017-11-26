@@ -46,9 +46,6 @@ Plugin 'VundleVim/Vundle.vim'
 
 syntax enable
 
-" Wombat!
-let g:airline_theme='solarized'
-
 " Tab length.
 set tabstop=2
 set sw=2
@@ -106,6 +103,15 @@ call vundle#end()
 let g:solarized_termcolors=256
 colorscheme solarized
 set background=dark
+
+" Airline.
+let g:airline_theme='solarized'
+let g:airline_extensions=[] " Disable the whitespace extension.
+" Remove some of the noise.
+let g:airline_section_b=airline#section#create(['branch'])
+let g:airline_section_x=airline#section#create([])
+let g:airline_section_y=airline#section#create([])
+let g:airline_section_y=airline#section#create([])
 
 " Load indentation rules and plugins according to detected filetype.
 " Also required by vundle.
