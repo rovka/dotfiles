@@ -106,6 +106,7 @@ set background=dark
 
 " Airline.
 let g:airline_theme='solarized'
+let g:airline_powerline_fonts = 1
 let g:airline_extensions=[] " Disable the whitespace extension.
 " Remove some of the noise.
 let g:airline_section_b=airline#section#create(['branch'])

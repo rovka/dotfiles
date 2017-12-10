@@ -40,11 +40,18 @@ npm:
 	ln -sf "${PWD}/npmrc" ~/.npmrc
 
 .PHONY: vim-plugins
-vim-plugins:
+vim-plugins: powerline
 	rm -rf ~/.vim
 	mkdir -p ~/.vim/bundle
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim +PluginInstall +qall
+
+.PHONY: powerline
+# vim-airline uses patched powerline fonts.
+powerline:
+	rm -rf /tmp/fonts
+	cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
+	cd /tmp/fonts && ./install.sh
 
 .PHONY: fzf
 fzf:
