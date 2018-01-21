@@ -1,8 +1,9 @@
-export ZSH=~/.oh-my-zsh
+source ~/antigen.zsh
+
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:~/.local/bin"
 export EDITOR=vim
 
-ZSH_THEME="robbyrussell"
+antigen use oh-my-zsh
 
 # Case-sensitive completion.
 CASE_SENSITIVE="true"
@@ -14,9 +15,11 @@ COMPLETION_WAITING_DOTS="true"
 # status check for large repositories much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git)
+antigen bundle git
 
-source $ZSH/oh-my-zsh.sh
+antigen theme robbyrussell
+
+antigen apply
 
 export NVM_DIR=~/.nvm
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

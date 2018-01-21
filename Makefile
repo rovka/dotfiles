@@ -5,13 +5,13 @@ all: rc-files fzf
 rc-files: zsh vim git npm
 
 .PHONY: zsh
-zsh: oh-my-zsh
+zsh: antigen
 	ln -sf "${PWD}/zshrc" ~/.zshrc
 
-.PHONY: oh-my-zsh
-oh-my-zsh:
-	rm -rf ~/.oh-my-zsh
-	curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
+.PHONY: ntigen
+antigen:
+	rm -rf ~/.antigen.zsh
+	curl -L git.io/antigen > ~/.antigen.zsh
 
 .PHONY: vim
 vim: vim-plugins
