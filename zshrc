@@ -21,8 +21,19 @@ antigen theme robbyrussell
 
 antigen apply
 
-export NVM_DIR=~/.nvm
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+# Defer initialization of nvm until it's needed.
+# Copied from https://github.com/creationix/nvm/issues/1277#issuecomment-356309457.
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence -w __init_nvm)" = function ]; then
+  export NVM_DIR="$HOME/.nvm"
+  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn')
+  function __init_nvm() {
+    for i in "${__node_commands[@]}"; do unalias $i; done
+    . "$NVM_DIR"/nvm.sh
+    unset __node_commands
+    unset -f __init_nvm
+  }
+  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi
 
 # Don't retype commands on !!, just execute them.
 unsetopt histverify
