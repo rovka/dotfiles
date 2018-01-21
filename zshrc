@@ -15,7 +15,11 @@ COMPLETION_WAITING_DOTS="true"
 # status check for large repositories much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
+
 antigen bundle git
+antigen bundle tmux
 
 antigen theme robbyrussell
 
@@ -34,6 +38,8 @@ if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence -w __init_nvm)" = function ]; the
   }
   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
 fi
+
+plugins=(git tmux)
 
 # Don't retype commands on !!, just execute them.
 unsetopt histverify
