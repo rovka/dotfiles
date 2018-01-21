@@ -101,18 +101,24 @@ Plugin 'vim-airline/vim-airline-themes'
 call vundle#end()
 
 let g:solarized_termcolors=256
-colorscheme solarized
+try
+  colorscheme solarized
+catch
+endtry
 set background=dark
 
 " Airline.
-let g:airline_theme='solarized'
-let g:airline_powerline_fonts = 1
-let g:airline_extensions=[] " Disable the whitespace extension.
-" Remove some of the noise.
-let g:airline_section_b=airline#section#create(['branch'])
-let g:airline_section_x=airline#section#create([])
-let g:airline_section_y=airline#section#create([])
-let g:airline_section_y=airline#section#create([])
+try
+  let g:airline_theme='solarized'
+  let g:airline_powerline_fonts = 1
+  let g:airline_extensions=[] " Disable the whitespace extension.
+  " Remove some of the noise.
+  let g:airline_section_b=airline#section#create(['branch'])
+  let g:airline_section_x=airline#section#create([])
+  let g:airline_section_y=airline#section#create([])
+  let g:airline_section_y=airline#section#create([])
+catch
+endtry
 
 " Load indentation rules and plugins according to detected filetype.
 " Also required by vundle.
