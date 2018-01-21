@@ -8,7 +8,7 @@ rc-files: zsh vim git npm
 zsh: antigen
 	ln -sf "${PWD}/zshrc" ~/.zshrc
 
-.PHONY: ntigen
+.PHONY: antigen
 antigen:
 	rm -rf ~/.antigen.zsh
 	curl -L git.io/antigen > ~/.antigen.zsh
