@@ -120,6 +120,12 @@ try
 catch
 endtry
 
+" Always show the status line.
+set laststatus=2
+
+" Enable auto completion in the command line.
+set wildmenu
+
 " Load indentation rules and plugins according to detected filetype.
 " Also required by vundle.
 filetype plugin indent on
@@ -219,12 +225,6 @@ let NERDTreeMapOpenVSplit = "<C-v>"
 
 " Mark tabs and spaces
 set list listchars=tab:»\ ,trail:·,extends:»,precedes:«
-
-" Always show the status line.
-set laststatus=2
-
-" Enable auto completion in the command line.
-set wildmenu
 
 " Easy split navigation, source=vimbits.com
 nnoremap <C-h> <C-w>h
