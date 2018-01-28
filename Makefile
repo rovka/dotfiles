@@ -34,6 +34,7 @@ git-config:
 	git config --global diff.image.command '~/git-imgdiff.sh'
 	git config --global alias.l 'log --first-parent --oneline'
 	git config --global commit.verbose true
+	git config --global rerere.enabled true
 
 .PHONY: npm
 npm:
