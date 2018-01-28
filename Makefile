@@ -20,9 +20,9 @@ vim: vim-plugins
 
 .PHONY: git
 git: git-config
-	ln -sf "${PWD}/gitattributes" ~/.gitattributes
-	ln -sf "${PWD}/gitignore" ~/.gitignore
-	ln -sf "${PWD}/git-imgdiff.sh" ~/git-imgdiff.sh
+	ln -sf "${PWD}/git/gitattributes" ~/.gitattributes
+	ln -sf "${PWD}/git/gitignore" ~/.gitignore
+	ln -sf "${PWD}/git/git-imgdiff.sh" ~/git-imgdiff.sh
 
 .PHONY: git-config
 git-config:
