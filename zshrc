@@ -52,6 +52,7 @@ setopt HIST_IGNORE_ALL_DUPS
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 which ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 [ $(uname) = 'Linux' ] && alias open='xdg-open'
