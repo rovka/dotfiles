@@ -269,3 +269,11 @@ bind -n C-M-l select-pane -R
 
 # Easier fullscreen shortcut.
 bind -n M-Enter run 'cut -c3- ~/.tmux.conf | sh -s _maximize_pane "#{session_name}" #D'
+
+# C-b clashes with :Buffers shortcut in vim, C-a clashes with go to home
+# shortcut in terminals.
+set -gu prefix2
+unbind C-a
+unbind C-b
+set -g prefix M-m
+bind M-m send-prefix
