@@ -60,11 +60,10 @@ fzf:
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --key-bindings --completion --no-update-rc
 
-.PHONY: nvm
-nvm:
-	rm -rf ~/.nvm
-	git clone https://github.com/creationix/nvm.git ~/.nvm
-	cd ~/.nvm && git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" origin`
+.PHONY: node
+node:
+	rm -rf ~/n
+	curl -L https://git.io/n-install | bash -s -- -y -n
 
 .PHONY: tmux
 tmux:

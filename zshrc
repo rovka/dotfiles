@@ -25,20 +25,6 @@ antigen theme robbyrussell
 
 antigen apply
 
-# Defer initialization of nvm until it's needed.
-# Copied from https://github.com/creationix/nvm/issues/1277#issuecomment-356309457.
-if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(whence -w __init_nvm)" = function ]; then
-  export NVM_DIR="$HOME/.nvm"
-  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn')
-  function __init_nvm() {
-    for i in "${__node_commands[@]}"; do unalias $i; done
-    . "$NVM_DIR"/nvm.sh
-    unset __node_commands
-    unset -f __init_nvm
-  }
-  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-fi
-
 plugins=(git tmux)
 
 # Don't retype commands on !!, just execute them.
@@ -58,3 +44,5 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ $(uname) = 'Linux' ] && alias open='xdg-open'
 alias cb='git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d'
 alias cp='rsync -rvP'
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
