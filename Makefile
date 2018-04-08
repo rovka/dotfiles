@@ -2,7 +2,7 @@ PWD := $(shell pwd)
 
 all: rc-files fzf
 
-rc-files: zsh vim git npm tmux
+rc-files: zsh vim git tmux
 
 .PHONY: zsh
 zsh: antigen
@@ -36,10 +36,6 @@ git-config:
 	git config --global commit.verbose true
 	git config --global rerere.enabled true
 
-.PHONY: npm
-npm:
-	ln -sf "${PWD}/npmrc" ~/.npmrc
-
 .PHONY: vim-plugins
 vim-plugins: powerline
 	rm -rf ~/.vim
@@ -60,14 +56,19 @@ fzf:
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install --key-bindings --completion --no-update-rc
 
-.PHONY: node
-node:
-	rm -rf ~/n
-	curl -L https://git.io/n-install | bash -s -- -y -n
-
 .PHONY: tmux
 tmux:
 	rm -rf ~/.tmux.conf ~/.tmux.conf.local
 	git submodule update --init
 	ln -sf "${PWD}/tmux/config/.tmux.conf" ~/.tmux.conf
 	ln -sf "${PWD}/tmux/tmux.conf.local" ~/.tmux.conf.local
+
+.PHONY: node
+node:
+	rm -rf ~/n
+	curl -L https://git.io/n-install | bash -s -- -y -n
+
+.PHONY: npm
+npm:
+	npm config set -g save-prefix ~
+	npm config set -g init-license MIT
