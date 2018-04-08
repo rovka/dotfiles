@@ -18,6 +18,20 @@ vim: vim-plugins
 	ln -sf "${PWD}/vimrc" ~/.vimrc
 	mkdir -p ~/.vim/backups
 
+.PHONY: vim-plugins
+vim-plugins: powerline
+	rm -rf ~/.vim
+	mkdir -p ~/.vim/bundle
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim +PluginInstall +qall
+
+.PHONY: powerline
+# vim-airline uses patched powerline fonts.
+powerline:
+	rm -rf /tmp/fonts
+	cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
+	cd /tmp/fonts && ./install.sh
+
 .PHONY: git
 git: git-config
 	ln -sf "${PWD}/git/gitattributes" ~/.gitattributes
@@ -35,20 +49,6 @@ git-config:
 	git config --global alias.l 'log --first-parent --oneline'
 	git config --global commit.verbose true
 	git config --global rerere.enabled true
-
-.PHONY: vim-plugins
-vim-plugins: powerline
-	rm -rf ~/.vim
-	mkdir -p ~/.vim/bundle
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-	vim +PluginInstall +qall
-
-.PHONY: powerline
-# vim-airline uses patched powerline fonts.
-powerline:
-	rm -rf /tmp/fonts
-	cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
-	cd /tmp/fonts && ./install.sh
 
 .PHONY: fzf
 fzf:
