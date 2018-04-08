@@ -2,6 +2,7 @@ PWD := $(shell pwd)
 
 all: rc-files fzf
 
+.PHONY: rc-files
 rc-files: zsh vim git tmux
 
 .PHONY: zsh
