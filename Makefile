@@ -65,11 +65,14 @@ tmux:
 	ln -sf "${PWD}/tmux/tmux.conf.local" ~/.tmux.conf.local
 
 .PHONY: node
-node:
+node: n npm
+
+.PHONY: n
+n:
 	rm -rf ~/n
 	curl -L https://git.io/n-install | bash -s -- -y -n
 
 .PHONY: npm
-npm:
+npm: n
 	npm config set -g save-prefix ~
 	npm config set -g init-license MIT
