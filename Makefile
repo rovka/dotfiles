@@ -74,5 +74,5 @@ n:
 
 .PHONY: npm
 npm: n
-	npm config set -g save-prefix ~
-	npm config set -g init-license MIT
+	npm config set -g save-prefix='~'
+	npm config set -g init-license=MIT
