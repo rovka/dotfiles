@@ -34,19 +34,13 @@ powerline:
 	cd /tmp/fonts && ./install.sh
 
 .PHONY: git
-git: git-config
-	ln -sf "${PWD}/git/gitattributes" ~/.gitattributes
-	ln -sf "${PWD}/git/gitignore" ~/.gitignore
-	ln -sf "${PWD}/git/git-imgdiff.sh" ~/git-imgdiff.sh
-
-.PHONY: git-config
-git-config:
-	git config --global core.excludesfile '~/.gitignore'
-	git config --global core.attributesfile '~/.gitattributes'
+git:
+	git config --global core.excludesfile '${PWD}/.gitignore'
+	git config --global core.attributesfile '${PWD}/.gitattributes'
 	git config --global push.default simple
 	git config --global grep.lineNumber true
 	git config --global diff.renames true
-	git config --global diff.image.command '~/git-imgdiff.sh'
+	git config --global diff.image.command '${PWD}/git-imgdiff.sh'
 	git config --global alias.l 'log --first-parent --oneline'
 	git config --global commit.verbose true
 	git config --global rerere.enabled true
