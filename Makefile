@@ -35,12 +35,12 @@ powerline:
 
 .PHONY: git
 git:
-	git config --global core.excludesfile '${PWD}/.gitignore'
-	git config --global core.attributesfile '${PWD}/.gitattributes'
+	git config --global core.excludesfile '${PWD}/git/gitignore'
+	git config --global core.attributesfile '${PWD}/git/gitattributes'
 	git config --global push.default simple
 	git config --global grep.lineNumber true
 	git config --global diff.renames true
-	git config --global diff.image.command '${PWD}/git-imgdiff.sh'
+	git config --global diff.image.command '${PWD}/git/imgdiff.sh'
 	git config --global alias.l 'log --first-parent --oneline'
 	git config --global commit.verbose true
 	git config --global rerere.enabled true
