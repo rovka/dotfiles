@@ -44,7 +44,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt menucomplete
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-which ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+which ag > /dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
