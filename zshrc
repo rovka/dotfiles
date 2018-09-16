@@ -48,10 +48,11 @@ which ag > /dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .g
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+# Aliases.
 [ $(uname) = 'Linux' ] && alias open='xdg-open'
 alias cb='git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d'
 alias cp='rsync -rvP'
 alias cat='~/.bin/bat'
 alias ping='~/.bin/prettyping --nolegend'
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
