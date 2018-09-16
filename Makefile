@@ -8,6 +8,7 @@ rc-files: zsh vim git tmux
 .PHONY: zsh
 zsh: antigen
 	ln -sf "${PWD}/zshrc" ~/.zshrc
+	ln -sf "${PWD}/bin" ~/.bin
 
 .PHONY: antigen
 antigen:

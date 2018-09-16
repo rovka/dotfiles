@@ -51,5 +51,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ $(uname) = 'Linux' ] && alias open='xdg-open'
 alias cb='git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d'
 alias cp='rsync -rvP'
+alias cat='~/.bin/bat'
+alias ping='~/.bin/prettyping --nolegend'
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
