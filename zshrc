@@ -24,8 +24,8 @@ ZSH_TMUX_AUTOCONNECT=false
 
 antigen bundle git
 antigen bundle tmux
-
-antigen theme robbyrussell
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 antigen apply
 
