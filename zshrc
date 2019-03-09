@@ -41,8 +41,9 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_ALL_DUPS
 
-# Always show the autocomplete mentu when there's an ambigious completion.
-setopt menucomplete
+# Bash like autocompletion where tab completes the common prefix and then waits.
+setopt autolist
+unsetopt menucomplete
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 which ag > /dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
