@@ -46,6 +46,16 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt autolist
 unsetopt menucomplete
 
+# https://github.com/zsh-users/zsh-autosuggestions/issues/158#issuecomment-276430989
+autosuggest-accept-redraw() {
+  zle autosuggest-accept
+  zle redisplay
+  zle redisplay
+}
+zle -N autosuggest-accept-redraw
+ZSH_AUTOSUGGEST_IGNORE_WIDGETS+=autosuggest-accept-redraw
+bindkey '^ ' autosuggest-accept-redraw
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 which ag > /dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
