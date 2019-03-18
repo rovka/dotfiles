@@ -56,7 +56,7 @@ fzf:
 tmux:
 	rm -rf ~/.tmux.conf ~/.tmux.conf.local
 	git submodule update --init
-	ln -sf "${PWD}/tmux/config/.tmux.conf" ~/.tmux.conf
+	ln -sf "${PWD}/tmux/oh-my/.tmux.conf" ~/.tmux.conf
 	ln -sf "${PWD}/tmux/tmux.conf.local" ~/.tmux.conf.local
 
 .PHONY: node
