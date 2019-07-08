@@ -1,0 +1,46 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    ~/.dotfiles: ''
+    ~/.tmux.conf: tmux/oh-my/.tmux.conf
+    ~/.tmux.conf.local: tmux/tmux.conf.local
+    ~/.vimrc: vimrc
+    ~/.zshrc: zshrc
+    ~/.bin: bin
+
+- shell:
+  - git submodule update --init
+  # Powerline
+  - rm -rf /tmp/fonts
+  - cd /tmp && git clone https://github.com/powerline/fonts.git --depth=1
+  - cd /tmp/fonts && ./install.sh
+  # Vim plugins
+  - rm -rf ~/.vim
+  - mkdir -p ~/.vim/bundle
+  - git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  - vim +PluginInstall +qall
+  # zsh plugins
+  - rm -rf ~/.antigen.zsh
+  - curl -L git.io/antigen > ~/.antigen.zsh
+  # git config
+  - git config --global core.excludesfile '~/.dotfiles/git/gitignore'
+  - git config --global core.attributesfile '~/.dotfiles/git/gitattributes'
+  - git config --global diff.image.command '~/.dotfiles/git/imgdiff.sh'
+  - git config --global push.default simple
+  - git config --global grep.lineNumber true
+  - git config --global diff.renames true
+  - git config --global alias.l 'log --first-parent --oneline'
+  - git config --global commit.verbose true
+  - git config --global rerere.enabled true
+  # fzf
+  - rm -rf ~/.fzf
+  - git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+  - ~/.fzf/install --key-bindings --completion --no-update-rc
+  # node
+  - rm -rf ~/n
+  - curl -L https://git.io/n-install | bash -s -- -y -n
+  - npm config set -g save-prefix='~'
+  - npm config set -g init-license=MIT
+

@@ -1,3 +1,6 @@
 [submodule "tmux/config"]
 	path = tmux/oh-my
 	url = https://github.com/gpakosz/.tmux.git
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot
