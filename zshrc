@@ -31,8 +31,6 @@ antigen bundle zsh-users/zsh-autosuggestions
 
 antigen apply
 
-plugins=(git tmux)
-
 # Don't retype commands on !!, just execute them.
 unsetopt histverify
 
