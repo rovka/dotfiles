@@ -25,9 +25,6 @@
   - mkdir ~/.antigen
   - curl -L git.io/antigen > ~/.antigen/antigen.zsh
   # git config
-  - git config --global core.excludesfile '~/.dotfiles/git/gitignore'
-  - git config --global core.attributesfile '~/.dotfiles/git/gitattributes'
-  - git config --global diff.image.command '~/.dotfiles/git/imgdiff.sh'
   - git config --global push.default simple
   - git config --global grep.lineNumber true
   - git config --global diff.renames true
@@ -38,9 +35,4 @@
   - rm -rf ~/.fzf
   - git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   - ~/.fzf/install --key-bindings --completion --no-update-rc
-  # node
-  - rm -rf ~/n
-  - curl -L https://git.io/n-install | bash -s -- -y -n
-  - npm config set -g save-prefix='~'
-  - npm config set -g init-license=MIT
 
