@@ -1,12 +1,26 @@
+" Potentially re-usable keys:
+" Normal mode:
+" c,
+" U - uppercase, u - lowercase
+
+let mapleader=","
+let maplocalleader=';'
+
+" Quick access to this file
+:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
 " Necessary for listchars to work in all environments.
 scriptencoding utf-8
 set encoding=utf-8
 
+" Auto reload vimrc.
+augroup rc
+  autocmd!
+  autocmd BufWritePost .vimrc source %
+augroup end
+
 " Fix webpack watch.
 set backupcopy=yes
-
-" OSX you so silly
-set backspace=2
 
 " Try to stop saving backup files and swap files in the current folder.
 set backupdir=~/.vim/backups,.
@@ -57,6 +71,9 @@ set expandtab
 " Line length.
 set tw=80
 set wrap
+set linebreak
+set breakindent
+let &showbreak = '>>> '
 
 " Highlight the line length limit.
 if version >= 703
@@ -72,15 +89,12 @@ set ai
 " - Before a line starting with '}' (only with the "O" command).
 " When typing '}' as the first character in a new line, that line is
 " given the same indent as the matching '{'.
+" set smartindent
 set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 
 " Syntax highlighting.
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'elzr/vim-json'
-Plugin 'groenewege/vim-less'
 Plugin 'ekalinin/Dockerfile.vim'
 
 " Git.
@@ -96,6 +110,8 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+" TODO Add ycm
 
 " All of the Vundle plugins must be added before this.
 call vundle#end()
@@ -132,37 +148,65 @@ filetype plugin indent on
 
 " Per filetype-settings
 " c/cpp modified by Deedee to match LLVM coding style
-autocmd FileType c,cpp      setlocal tw=80 sw=2 sts=2 tabstop=2
-autocmd FileType java       setlocal foldmethod=marker
-autocmd FileType python     setlocal expandtab
-autocmd FileType php        setlocal tw=80 sw=4 sts=4 tabstop=4
-autocmd FileType html       setlocal tw=0 cc=101 nowrap
-autocmd FileType javascript setlocal sw=2 sts=2
-autocmd FileType coffee     setlocal sw=4 sts=4 tabstop=4
+augroup lints
+  autocmd FileType c,cpp      setlocal tw=80 sw=2 sts=2 tabstop=2
+  autocmd FileType llvm       setlocal tw=0 sw=2 sts=2 tabstop=2 expandtab
+  autocmd FileType python     setlocal expandtab
+  autocmd FileType gitcommit  setlocal tw=72
 
-" +1: Try to break a line before the last one letter word.
-autocmd FileType * set fo+=1
+  " +1: Try to break a line before the last one letter word.
+  autocmd FileType * set fo+=1
 
-" Enable JSDoc syntax highlighting
-let g:javascript_plugin_jsdoc = 1
-
-" Remove trailing whitespaces
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+  " Remove trailing whitespaces
+  fun! <SID>StripTrailingWhitespaces()
+      let l = line(".")
+      let c = col(".")
+      %s/\s\+$//e
+      call cursor(l, c)
+  endfun
+  " Sometimes it's not ok to remove trailing whitespaces. Stay on the safe side
+  " by explicitly selecting which kinds of files we want this for.
+  autocmd BufWritePre *.c,*.h,*.cpp,*.hpp,*.inc,*.td,*.py :call <SID>StripTrailingWhitespaces()
+augroup end
 
 " Productivity shortcuts.
 imap jk <Esc>
 imap jj <Esc><Down>
 imap kk <Esc><Up>
+inoremap ;; <Esc>e
+inoremap hh <Esc>b
 imap ggg <Esc>gg
+
+vnoremap jk <Esc>
+
+vnoremap H <Home>
+vnoremap L <End>
+onoremap H <Home>
+onoremap L <End>
+
+nnoremap H <Home>
+nnoremap L <End>
 
 nnoremap J <C-D>
 nnoremap K <C-U>
+"
+" Move lines up or down.
+nnoremap J :m .+1<CR>==
+nnoremap K :m .-2<CR>==
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Just save!
+inoremap :w <Esc>:w
+
+" Jump to the beginning/end of the block
+noremap <leader>J /}<CR>
+noremap <leader>K ?{<CR>
+
+" Enter insert mode above/below the current line and add an additional empty
+" line.
+nnoremap oo o<CR>
+nnoremap OO O<CR>
 
 " Select last pasted/modified text in the same visual mode
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -271,7 +315,7 @@ set pastetoggle=<leader>p
 set showmode
 
 " Rewrap a block of text
-map <S-Q> gq
+noremap <S-Q> gq
 
 " Search for selected text, forwards or backwards.
 " Ripped off from vim.wikia.com
@@ -289,6 +333,34 @@ vnoremap <silent> # :<C-U>
 " Paste from the clipboard the easy way
 set clipboard=unnamed
 
+" Full-lowercase searches are case insensitive
+set ignorecase
+set smartcase
+
+" Save when losing focus
+au FocusLost * :wa
+
+" YCM key bindings
+nnoremap <leader>o :YcmCompleter GoToInclude<CR>
+nnoremap <leader>d :YcmCompleter GoTo<CR>
+nnoremap <leader>D :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>def :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>t :YcmCompleter GetType<CR>
+nnoremap <leader>v :YcmCompleter GetParent<CR>
+nnoremap <leader>F :YcmCompleter FixIt<CR>
+nnoremap <leader>c :YcmDiags<CR>
+
+" YCM - don't bug me about ycm_extra_conf.py
+let g:ycm_confirm_extra_conf = 0
+
+" Add or remove { } around single statement
+" Note that this may leave trailing whitespaces, but we don't care because it
+" will be handled when saving
+nnoremap <leader>+{ <Up><End>a<Space>{<Down><End><CR>}<Esc><Up>
+nnoremap <leader>-{ <Up><End><Delete><Down><Down>VD
+
+nnoremap <leader>j :join<CR>
+
 " Apply macros to the visual selection. Doesn't stop on lines that don't match.
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
@@ -296,3 +368,13 @@ function! ExecuteMacroOverVisualRange()
   echo "@".getcmdline()
   execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+" Boilerplate for argument parsing in python
+" TODO: get ultisnips or something to actually work...
+augroup shorthands
+  autocmd!
+  :autocmd FileType python :iabbrev <buffer> argparsing from argparse import ArgumentParser<CR>parser = ArgumentParser(description="TODO")<CR>parser.add_argument('-arg', required=False, action='store_true', help="TODO")<CR>args=parser.parse_args()<CR>
+
+  " Boilerplate for launching a subprocess in python
+  :autocmd FileType python :iabbrev <buffer> subproc from subprocess import CalledProcessError, check_output, STDOUT, SubprocessError<CR>try:<CR><Tab>out=check_output(command, stderr=STDOUT)<CR>except CalledProcessError as exc:<CR><Tab>raise<CR>except SubprocessError as exc:<CR><Tab>raise RuntimeError("Error while running command\n{}".format(<CR><Tab><Tab>str(exc.output, 'utf-8'))) from exc
+augroup end
