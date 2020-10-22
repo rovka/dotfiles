@@ -67,9 +67,4 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 [ $(uname) = 'Linux' ] && alias open='xdg-open'
 alias cb='git branch --merged | grep -v "\*\|master" | xargs -n 1 git branch -d'
 alias cp='rsync -rvPai'
-if [ $(uname) = 'Linux' ]; then
-  alias cat='~/.bin/bat/linux/bat'
-else
-  alias cat='~/.bin/bat/osx/bat'
-fi
 alias ping='~/.bin/prettyping --nolegend'
