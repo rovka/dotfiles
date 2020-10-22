@@ -1,0 +1,11 @@
+{
+  "LLVM_ENABLE_PROJECTS": "clang;flang;mlir",
+  "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+  "CMAKE_CXX_FLAGS": "-Wall",
+  "LLVM_ENABLE_ASSERTIONS": "ON",
+  "LLVM_BUILD_TESTS": "ON",
+  "LLVM_TARGETS_TO_BUILD": "AArch64;X86",
+  "LLVM_ENABLE_LLD" : "ON",
+  "CMAKE_C_COMPILER" : "clang",
+  "CMAKE_CXX_COMPILER" : "clang++"
+}
