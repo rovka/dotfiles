@@ -1,0 +1,25 @@
+#!/usr/bin/python3
+
+from argparse import ArgumentParser
+from llvmutils import Shell
+import os
+
+parser = ArgumentParser(description="Build llvm")
+parser.add_argument('-j', dest='buildjobs',
+    help="Number of build jobs to run")
+parser.add_argument('targets', default=['check-all'], nargs='*', help="Targets to build")
+args = parser.parse_args()
+
+builddir = os.environ['LLVM_BLD']
+if not builddir:
+    raise ValueError("Environment not set. Please run llvm-env.")
+
+if not os.path.exists(builddir):
+    raise ValueError("Build directory does not exist. Please run llvm-env-cfg.")
+
+for target in args.targets:
+    parallel = []
+    if args.buildjobs is not None:
+        parallel = ["-j{}".format(args.buildjobs)]
+
+    Shell().run(['ninja', target] + parallel, builddir)

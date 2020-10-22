@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# This script removes a worktree environment for LLVM and all other projects:
+# * it removes all the worktrees and corresponding  build directories
+# * it runs git worktree prune in all the repos
+# * it DOES NOT remove the corresponding branch
+
+. llvm-common
+
+if [ "$1" = "" -o "$2" = "" ]; then
+  echo "Usage: $0 <llvm-repo-dir> <llvm-worktree-dir>"
+  exit 1
+fi
+
+llvm_repo_dir=$1
+llvm_worktree_dir=$2
+
+if [ ! -d $llvm_repo_dir ]; then
+  echo "Couldn't find llvm repo in $llvm_repo_dir"
+  exit 1
+fi
+
+if [ ! -d $llvm_worktree_dir ]; then
+  echo "Couldn't find llvm worktree in $llvm_worktree_dir"
+  exit 1
+fi
+
+# Clean up the worktrees (if we remove the LLVM worktree dir, all the other
+# worktrees are removed too, so we only need to prune the repos)
+safe_run remove_worktree $llvm_repo_dir $llvm_worktree_dir
+
+# Clean up build directories too
+env_root_dir=`readlink -m $llvm_worktree_dir/../`
+echo "Removing everything in $env_root_dir"
+safe_run rm -rf $env_root_dir

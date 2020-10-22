@@ -1,0 +1,10 @@
+{
+  "CMAKE_BUILD_TYPE":"Debug",
+  "LLVM_BUILD_TARGETS":"ARM;AArch64",
+  "BUILD_SHARED_LIBS":"ON",
+  "LLVM_USE_SPLIT_DWARF":"ON"
+}
+CMAKE_EXE_LINKER_FLAGS_*=-Wl,-gdb-index
+ -Wa,-compress-debug-sections
+
+ Clang has a way to achieve this. Once you've built LLVM without debug info, you can then delete the objects or modify the sources you want to debug and then rebuild with something like 'CCC_OVERRIDE_OPTIONS="+-g +-O0" ninja'. The newly built files will have debug info.

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. llvm-common
+
+verify_env
+
+pushdq $LLVM_MONOREPO/repos/llvm-project
+git pull origin
+popdq
+
+pushdq $LLVM_SRC
+git rebase master
+popdq

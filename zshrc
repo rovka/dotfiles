@@ -36,6 +36,29 @@ antigen apply
 # Don't retype commands on !!, just execute them.
 unsetopt histverify
 
+# Add pushd directory to stack even if it's already there.
+setopt nopushdignoredups
+
+# Aliases
+alias debug='gdb -tui --args'
+alias ddb='gdb -tui -d $LLVM_SRC --args'
+
+# Load environment for working with my LLVM helper scripts
+source ~/.setenv.sh
+
+alias llvm-env="source llvm-env"
+alias src='cd $LLVM_SRC'
+alias bld='cd $LLVM_BLD'
+
+alias llvm-build="llvm-build -j6"
+alias llvm-check="llvm-build check-all"
+alias llvm-check-arm="llvm-build check-llvm-codegen-arm"
+alias llvm-check-aarch64="llvm-build check-llvm-codegen-aarch64"
+alias llvm-check-a64="llvm-build check-llvm-codegen-aarch64"
+alias llvm-check-a32="llvm-build check-llvm-codegen-arm"
+
+alias gg='git grep'
+alias ggi='git grep -i'
 # Don't share history between terminals.
 unsetopt share_history
 setopt HIST_SAVE_NO_DUPS

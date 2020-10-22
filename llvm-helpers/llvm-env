@@ -1,0 +1,198 @@
+#!/usr/bin/env bash
+
+# This script manages the environment needed by the helper scripts
+# It needs to have one environment variable set in order to do its job:
+# LLVM_ROOT - the directory under which the llvm sources and build directories
+# will live
+
+# This script is meant to be sourced, so we don't want things to exit on error,
+# because that would kill the whole shell. Instead, we trap and return from the
+# script (which leaves the shell running, so people can see what went wrong).
+clean_exit="trap '' ERR; return"
+
+trap "$clean_exit" ERR
+
+. llvm-common
+
+# Check that we have actually been sourced
+if [ -z "$PS1" ]; then
+  echo "This script must be sourced. You might want to create an alias llvm-env=\". llvm-env\""
+  exit 1
+fi
+
+list_worktrees() {
+  current_worktree=$1
+
+  # FIXME:
+  # Ideally we would just use git for this (I think git 2.7-ish should suffice),
+  # but I'm currently stuck with git 2.5 on my Ubuntu and it seems to me the
+  # rest of the team is on older gits too. Until we all move to a smarter git,
+  # we're going to use the simplest possible implementation that can give us
+  # what we want (the proper way to do this ofc would be to inspect
+  # $GITDIR/worktrees/). This implementation has the disadvantage that it may
+  # give false positives or false negatives if you do naughty things with your
+  # $LLVM_ROOT.
+  pushdq $LLVM_MONOREPO
+
+  for dir in *; do
+    if [ -d "$dir" -a -f "$dir/llvm/.git" ]; then
+      pushdq $dir/llvm
+      branch=`get_branch`
+      popdq
+
+      config=$(find $dir -maxdepth 1 -name '*.json')
+      if [ x"$config" = x"" ]; then
+        config="No *.json"
+      fi
+
+      if [ "$current_worktree" = "$LLVM_MONOREPO/$dir/llvm" ]; then
+        echo "[ $dir ($branch) $config ]"
+      else
+        echo "$dir ($branch) $config"
+      fi
+    fi
+  done
+
+  popdq
+
+}
+
+if [ "$1" = "" ]; then
+  if [ -z "$LLVM_SRC" ]; then
+    echo "You haven't set up an env (LLVM_SRC is empty)"
+    echo "Existing options:"
+    list_worktrees
+    eval $clean_exit
+  fi
+
+  worktree=`basename $(readlink -m $LLVM_SRC/../)`
+
+  list_worktrees $LLVM_SRC
+
+  eval $clean_exit
+elif [ "$1" = "-h" ]; then
+  echo "Usage: $0 <branch> [-cleanup] [-d]"
+  echo "  <branch> : the name of the branch you want to set the env for;"
+  echo "             it will be created if it does not already exist."
+  echo "  -cleanup : will clean up the environment corresponding to <branch>;"
+  echo "             this includes the worktrees for all the subprojects, as"
+  echo "             well as any directories in that environment (especially the"
+  echo "             build dirs!)"
+  echo "             it will not clean up any branches (you should use"
+  echo "             llvm-branch for that)"
+  echo "  -d : build the debug version."
+  echo "  -s : build the self-hosted version (CC is set to <branch>/build)."
+  eval $clean_exit
+fi
+
+branch=$1
+shift
+
+if [[ $branch = -* ]]; then
+  echo "Invalid branch name $branch"
+  eval $clean_exit
+fi
+
+if [ "$branch" = "master" ]; then
+  echo "Building master directly is not supported."
+  echo "You can instead run 'llvm-env TrackMaster'"
+  echo "to create an environment that tracks master."
+  eval $clean_exit
+fi
+
+clean=false
+if [ "$1" = "-cleanup" ]; then
+  clean=true
+  shift
+fi
+
+debug_build=false
+selfhost_build=false
+OPTIND=0
+while getopts "ds" opt; do
+  if [ "$opt" = "d" ]; then
+    debug_build=true
+  elif [ "$opt" = "s" ]; then
+    selfhost_build=true
+  else
+    eval $clean_exit
+  fi
+  shift
+done
+
+if [ "$1" != "" ]; then
+  echo "Too many args?"
+  eval $clean_exit
+fi
+
+llvm_dir=$LLVM_MONOREPO/repos/llvm-project
+llvm_worktree_dir=$LLVM_MONOREPO/$branch/llvm
+
+llvm_build_dir=$LLVM_MONOREPO/$branch/build
+if $debug_build; then
+  llvm_build_dir=$LLVM_MONOREPO/$branch/debug
+elif $selfhost_build; then
+  if [ ! -d "$llvm_build_dir" ] || \
+     [ ! -x "$llvm_build_dir/bin/clang" ] || \
+     [ ! -x "$llvm_build_dir/bin/clang++" ]; then
+    echo "Stage 1 build dir not found at: $llvm_build_dir"
+    echo "Build stage 1 first, then the self-hosted"
+    eval $clean_exit
+  fi
+  llvm_stage1_dir=$llvm_build_dir
+  llvm_build_dir=$LLVM_MONOREPO/$branch/selfhost
+fi
+
+llvm_install_dir=$LLVM_MONOREPO/$branch/install
+
+if [ "$clean" = true ]; then
+  .llvm-env-remove $llvm_dir $llvm_worktree_dir
+else
+  .llvm-env-add $branch $llvm_dir $llvm_worktree_dir
+fi
+
+# Changes to the environment should be confined to the end of the script, to
+# make sure we don't change half the environment and then fail out
+
+if [ "$clean" = true ]; then
+  # Clean up the environment to make sure the other scripts error out
+  # accordingly instead of trying anything stupid
+  export LLVM_SRC=
+  export LLVM_BLD=
+  export LLVM_DEBUG=
+  if [ ! -z "$LLVM_OLD_PATH" ]; then
+    export PATH=$LLVM_OLD_PATH
+  fi
+  eval $clean_exit
+fi
+
+export LLVM_SRC=$llvm_worktree_dir
+export LLVM_BLD=$llvm_build_dir
+export LLVM_INSTALL=$llvm_install_dir
+# For llvm-build to know
+export LLVM_DEBUG=$debug_build
+export LLVM_SELFHOST=$selfhost_build
+
+# Self-hosted builds need to use the previously built clang, maybe LLD.
+if $selfhost_build; then
+  # Clang will automatically pick LLD if available on the same dir
+  LLVM_CMAKE_FLAGS="-DCMAKE_C_COMPILER=$llvm_stage1_dir/bin/clang \
+                    -DCMAKE_CXX_COMPILER=$llvm_stage1_dir/bin/clang++"
+  export LLVM_CMAKE_FLAGS
+fi
+
+# Make it possible to undo changes to the PATH: we export an LLVM_OLD_PATH, and
+# instead of appending the binary dir to $PATH, we append to $LLVM_OLD_PATH (if
+# it exists)
+# This is intended to support scenarios where you want to switch between a
+# release and debug build of the same branch in the same shell, without growing
+# a huge PATH
+path_to_add_to=$PATH
+if [ ! -z "$LLVM_OLD_PATH" ]; then
+  path_to_add_to=$LLVM_OLD_PATH
+fi
+
+export LLVM_OLD_PATH=$path_to_add_to
+export PATH=$llvm_build_dir/bin:$path_to_add_to
+
+eval $clean_exit

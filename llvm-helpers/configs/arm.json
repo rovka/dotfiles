@@ -1,0 +1,5 @@
+{
+  "LLVM_PARALLEL_LINK_JOBS" : "2",
+  "LLVM_TARGETS_TO_BUILD":"ARM;AArch64",
+  "COMPILER_RT_TEST_COMPILER_CFLAGS":"\"-mcpu=cortex-a15 -mfpu=vfpv3 -marm\""
+}

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+. llvm-common
+
+if [ "$1" = "" -o "$2" = "" -o "$3" = "" ]; then
+  echo "Usage: $0 <branch> <llvm-repo-dir> <llvm-worktree-dir>"
+  exit 1
+fi
+
+branch=$1
+llvm_repo_dir=$2
+llvm_worktree_dir=$3
+
+if [ ! -d $llvm_repo_dir ]; then
+  echo "Couldn't find llvm repo in $llvm_repo_dir"
+  exit 1
+fi
+
+if [ ! -d $llvm_worktree_dir ]; then
+  # First time we're checking out this branch
+  safe_run add_worktree $llvm_repo_dir $llvm_worktree_dir $branch
+fi
+

@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+
+# The common script is only meant to be included from other LLVM helper scripts
+
+# Verify the compulsory environment variables - these must be set for all the
+# helper scripts.
+if [[ $LLVM_MONOREPO = '' ]]; then
+  echo "Please, define \$LLVM_MONOREPO to point to the root"
+  echo "path where the worktree setup should be performed"
+  exit -1
+fi
+
+# Verify the environment variables that should be set by llvm-env
+verify_env() {
+  if [[ $LLVM_SRC = '' ]]; then
+    echo "Please, define \$LLVM_SRC to point to the current LLVM"
+    echo "worktree directory, or run llvm-env to set it for you"
+    exit -1
+  fi
+  if [[ $LLVM_BLD = '' ]]; then
+    echo "Please, define \$LLVM_BLD to point to the current LLVM"
+    echo "build directory, or run llvm-env to set it for you"
+    exit -1
+  fi
+}
+
+has() {
+  if [[ $1 = '' || $2 = '' ]]; then
+    echo no
+    return
+  fi
+  local item=$1
+  shift
+  for each in $*; do
+    if [[ $item = $each ]]; then
+      echo yes
+      return
+    fi
+  done
+  echo no
+}
+
+get_branch() {
+  branch=`git rev-parse --abbrev-ref HEAD`
+  if [[ $? != 0 ]]; then
+    local dir=`pwd`
+  	echo "Source dir '$dir' is not in a git repository" 1>&2
+	  exit -1
+  fi
+  echo $branch
+}
+
+get_branches() {
+  branches=`git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'`
+  if [[ $? != 0 ]]; then
+    local dir=`pwd`
+  	echo "Source dir '$dir' is not in a git repository" 1>&2
+	  exit -1
+  fi
+  echo $branches
+}
+
+has_branch() {
+  branch=$1
+  branches=`get_branches`
+  result=`has $branch $branches`
+  echo $result
+}
+
+safe_run() {
+  "$@"
+  if [[ $? != 0 ]]; then
+	  echo "'$@' failed, bailing out"
+    exit 1
+  fi
+}
+
+is_git() {
+  test -d `git rev-parse --show-toplevel`/.git
+}
+
+is_git_svn() {
+  test -f `git rev-parse --show-toplevel`/.git/svn/.metadata
+}
+
+# Quiet pushd & popd
+pushdq() {
+  pushd "$@" > /dev/null
+}
+
+popdq() {
+  popd "$@" > /dev/null
+}
+
+add_worktree() {
+  repo_dir=$1
+  worktree_dir=$2
+  branch=$3
+
+  pushdq $repo_dir
+
+  if [ `get_branch` != 'master' ]; then
+    echo "$repo_dir isn't on master, bailing out"
+    exit 1
+  fi
+
+  if [ `has_branch $branch` = "yes" ]; then
+    safe_run git worktree add $worktree_dir $branch
+  else
+    safe_run git worktree add -b $branch $worktree_dir
+  fi
+  popdq
+}
+
+remove_worktree() {
+  repo_dir=$1
+
+  if [ "$2" != "" ]; then
+    worktree_dir=$2
+    safe_run rm -rf $worktree_dir
+  fi
+
+  pushdq $repo_dir
+  safe_run git worktree prune
+  popdq
+}

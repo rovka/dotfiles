@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+
+from argparse import ArgumentParser
+from llvmutils import Shell, find_config_file
+from shutil import rmtree
+import json
+import os
+
+# Pie in the sky:
+# Write a whatever.json somewhere in the env (next to the build directory?) so
+# we know what we used.
+
+parser = ArgumentParser(description="Add config files to an environment.")
+parser.add_argument('-keep-builds', required=False, action='store_true',
+        help="Remove existing build directories.")
+parser.add_argument('configPath', nargs=1,
+        help="Path to file containing the config.")
+args = parser.parse_args()
+
+builddir = os.environ['LLVM_BLD']
+sourcedir = os.path.join(os.environ['LLVM_SRC'], 'llvm')
+scriptsdir = os.path.dirname(os.path.realpath(__file__))
+generator = os.environ['LLVM_GENERATOR']
+
+if not builddir or not sourcedir:
+    raise ValueError("Environment not set. Run llvm-env first.")
+
+if not generator:
+    generator = 'Ninja'
+
+keepBuildDir=args.keep_builds
+buildDirExists=os.path.exists(builddir)
+
+if keepBuildDir and not buildDirExists:
+    raise ValueError("Nothing to keep.")
+
+if not keepBuildDir and buildDirExists:
+    print("Removing build directory {}".format(builddir))
+    rmtree(builddir)
+
+(found, configPath) = find_config_file(str(args.configPath[0]))
+if not found:
+    raise ValueError("Invalid config file {}.\nTry one of\n{}".format(args.configPath[0],
+        '\n'.join(map(str, configPath))))
+
+print("Reading build config from", configPath)
+config={}
+with open(configPath) as configFile:
+    config.update(json.load(configFile))
+
+cmakedefs=[]
+for var, value in config.items():
+    cmakedefs.append("-D{}={}".format(var, value))
+
+# FIXME: Allow make if Ninja isn't available
+shell = Shell(verbose=True)
+shell.mkdir(builddir)
+shell.copy(configPath, os.path.join(builddir, '..'))
+shell.run(['cmake', '-G', generator, sourcedir] + cmakedefs, builddir)

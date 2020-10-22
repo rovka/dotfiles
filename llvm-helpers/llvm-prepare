@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# This script creates the source tree as the other LLVM scripts would like to
+# find. It's recommended that you use this script before all, and keep the
+# format correct, so all the other scripts work accordingly. This script
+# honours the LLVM_GITRW requirement and creates the appropriate type.
+
+. llvm-common
+
+llvm_repos=$LLVM_MONOREPO/repos
+
+echo " + Setting up monorepo at $llvm_repos"
+mkdir -p $llvm_repos
+pushdq $llvm_repos
+git clone https://github.com/llvm/llvm-project.git
+popdq
+
+echo " + Done"

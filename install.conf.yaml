@@ -9,6 +9,8 @@
     ~/.vimrc: vimrc
     ~/.zshrc: zshrc
     ~/.bin: bin
+    ~/.setenv.sh: setenv.sh
+    ~/.llvm-helpers: llvm-helpers
 
 - shell:
   # Powerline
