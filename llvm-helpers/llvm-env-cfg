@@ -6,10 +6,6 @@ from shutil import rmtree
 import json
 import os
 
-# Pie in the sky:
-# Write a whatever.json somewhere in the env (next to the build directory?) so
-# we know what we used.
-
 parser = ArgumentParser(description="Add config files to an environment.")
 parser.add_argument('-keep-builds', required=False, action='store_true',
         help="Remove existing build directories.")
