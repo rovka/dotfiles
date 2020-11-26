@@ -34,14 +34,22 @@ if not keepBuildDir and buildDirExists:
     print("Removing build directory {}".format(builddir))
     rmtree(builddir)
 
-(found, configPath) = find_config_file(str(args.configPath[0]))
+configName=str(args.configPath[0])
+(found, configPath) = find_config_file(configName)
 if not found:
     raise ValueError("Invalid config file {}.\nTry one of\n{}".format(args.configPath[0],
         '\n'.join(map(str, configPath))))
 
-print("Reading build config from", configPath)
+shell=Shell(verbose=True)
+shell.mkdir(builddir)
+
+configCopyPath=os.path.join(builddir, '..', configName)
+shell.copy(configPath, configCopyPath)
+shell.run_interactive(["vim", configCopyPath], builddir)
+
+print("Reading build config from", configCopyPath)
 config={}
-with open(configPath) as configFile:
+with open(configCopyPath) as configFile:
     config.update(json.load(configFile))
 
 cmakedefs=[]
@@ -49,7 +57,4 @@ for var, value in config.items():
     cmakedefs.append("-D{}={}".format(var, value))
 
 # FIXME: Allow make if Ninja isn't available
-shell = Shell(verbose=True)
-shell.mkdir(builddir)
-shell.copy(configPath, os.path.join(builddir, '..'))
 shell.run(['cmake', '-G', generator, sourcedir] + cmakedefs, builddir)

@@ -1,5 +1,5 @@
 from shutil import copy
-from subprocess import CalledProcessError, check_output, PIPE, Popen, STDOUT, SubprocessError
+from subprocess import call, CalledProcessError, check_output, PIPE, Popen, STDOUT, SubprocessError
 import os
 
 # Just a thin wrapper over the shell, so we can easily manage dry run modes etc.
@@ -71,6 +71,21 @@ class Shell(object):
             raise RuntimeError(
                 "Error while running command\n{}".format(str(exc.output, 'utf-8'))) from exc
 
+    def run_interactive(self, command, directory):
+        """
+        Same as run but without redirecting any streams.
+        """
+        try:
+            if self.dump_actions:
+                print(' '.join(command))
+
+            if self.dry:
+                return
+
+            call(command, cwd=directory)
+        except SubprocessError as exc:
+            raise RuntimeError(
+                "Error while running command\n{}".format(str(exc.output, 'utf-8'))) from exc
 
 
 # Get the full path to the given config file. If the input path is already
