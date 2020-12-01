@@ -59,8 +59,6 @@ alias llvm-check-a32="llvm-build check-llvm-codegen-arm"
 
 alias gg='git grep'
 alias ggi='git grep -i'
-# Don't share history between terminals.
-unsetopt share_history
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_ALL_DUPS
