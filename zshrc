@@ -1,7 +1,6 @@
 export ADOTDIR=~/.antigen/config
 source ~/.antigen/antigen.zsh
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:~/.local/bin"
 export EDITOR=vim
 
 antigen use oh-my-zsh
@@ -81,8 +80,6 @@ bindkey '^ ' autosuggest-accept-redraw
 which ag > /dev/null 2>&1 && export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 # Aliases.
 [ $(uname) = 'Linux' ] && alias open='xdg-open'
