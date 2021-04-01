@@ -111,7 +111,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-" TODO Add ycm
+Plugin 'ycm-core/YouCompleteMe'
 
 " All of the Vundle plugins must be added before this.
 call vundle#end()
