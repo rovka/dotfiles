@@ -9,5 +9,5 @@ git pull origin
 popdq
 
 pushdq $LLVM_SRC
-git rebase master
+git rebase main
 popdq

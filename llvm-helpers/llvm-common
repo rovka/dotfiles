@@ -99,8 +99,8 @@ add_worktree() {
 
   pushdq $repo_dir
 
-  if [ `get_branch` != 'master' ]; then
-    echo "$repo_dir isn't on master, bailing out"
+  if [ `get_branch` != 'main' ]; then
+    echo "$repo_dir isn't on main, bailing out"
     exit 1
   fi
 

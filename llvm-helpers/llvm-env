@@ -93,10 +93,8 @@ if [[ $branch = -* ]]; then
   eval $clean_exit
 fi
 
-if [ "$branch" = "master" ]; then
-  echo "Building master directly is not supported."
-  echo "You can instead run 'llvm-env TrackMaster'"
-  echo "to create an environment that tracks master."
+if [ "$branch" = "main" ]; then
+  echo "Building main directly is not supported."
   eval $clean_exit
 fi
 
