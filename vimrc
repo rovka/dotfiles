@@ -331,7 +331,7 @@ vnoremap <silent> # :<C-U>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " Paste from the clipboard the easy way
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " Full-lowercase searches are case insensitive
 set ignorecase
