@@ -7,6 +7,8 @@
     ~/.tmux.conf: tmux/oh-my/.tmux.conf
     ~/.tmux.conf.local: tmux/tmux.conf.local
     ~/.vimrc: vimrc
+    ~/.vim/filetype.vim: filetype.vim
+    ~/.vim/ftplugin: vim-filetypes
     ~/.zshrc: zshrc
     ~/.bin: bin
     ~/.setenv.sh: setenv.sh
