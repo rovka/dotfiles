@@ -15,15 +15,7 @@ COMPLETION_WAITING_DOTS="true"
 # status check for large repositories much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Don't start tmux in the IntelliJ terminal.
-if ! ps -p $PPID | grep -q java; then
-  ZSH_TMUX_AUTOSTART=true;
-fi
-
-ZSH_TMUX_AUTOCONNECT=false
-
 antigen bundle git
-antigen bundle tmux
 antigen bundle docker
 antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure@main
